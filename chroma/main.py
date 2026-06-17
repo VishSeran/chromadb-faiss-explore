@@ -1,5 +1,5 @@
 from chromadb import Collection
-from logger import get_logger
+from chroma.logger import get_logger
 from chroma.data import texts, ids
 from chroma.chroma_utils import collection_name, chroma_client, ef
 
