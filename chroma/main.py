@@ -34,20 +34,23 @@ def main():
         all_items = collection.get()
         print("Collection contents:")
         print(f"Number of documents: {len(all_items['documents'])}")
+        
+        perform_similarity_search(collection, all_items)
 
     except Exception as e:
         logger.error(f"Unknown error: {e}")
         return str({e})
     
 
-def perform_similarity_search (collection:Collection, all_items):
+def perform_similarity_search (collection, all_items):
     
     query_term = "apple"
     
     try:
         results = collection.query(
             query_texts=[query_term],
-            n_results=3
+            n_results=3,
+            include=["documents", "distances", "metadatas"]
         )
         logger.info(f"results for {query_term}: \n{results}")
         
@@ -58,10 +61,10 @@ def perform_similarity_search (collection:Collection, all_items):
         print(f'Top 3 similar documents to "{query_term}":')
         
         for i in range(min(3, len(results['ids'][0]))):
-            doc_id = results['ids'][i]
-            score = results['distances'][i]
-            
-            text= results['documents'][i]
+            doc_id = results['ids'][0][i]  # Get ID from 'ids' array
+            score = results['distances'][0][i]  # Get score from 'distances' array
+                # Retrieve text data from the results
+            text = results['documents'][0][i]
             
             if not text:
                 print(f' - ID: {doc_id}, Text: "Text not available", Score: {score:.4f}')
@@ -77,3 +80,7 @@ def perform_similarity_search (collection:Collection, all_items):
     except Exception as e:
         logger.error(f"Error in similarity search: {e}")
         return str({e})
+
+
+if __name__ == "__main__":
+    main()
