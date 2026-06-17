@@ -1,6 +1,8 @@
 import chroma
-from chroma.chroma_utils import collection_name, chroma_client, ef
 from logger import get_logger
+from chroma.data import texts,ids
+from chroma.chroma_utils import collection_name, chroma_client, ef
+
 
 logger = get_logger("chroma-main")
 
@@ -30,3 +32,4 @@ def main():
     except Exception as e:
         logger.error(f"Unknown error: {e}")    
         return str({e})
+    
