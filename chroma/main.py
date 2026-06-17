@@ -1,4 +1,4 @@
-import chroma
+from chromadb import Collection
 from logger import get_logger
 from chroma.data import texts, ids
 from chroma.chroma_utils import collection_name, chroma_client, ef
@@ -37,4 +37,19 @@ def main():
 
     except Exception as e:
         logger.error(f"Unknown error: {e}")
+        return str({e})
+    
+
+def perform_similarity_search (collection:Collection, all_items):
+    
+    query_term = "apple"
+    
+    try:
+        results = collection.query(
+            query_texts=[query_term],
+            n_results=3
+        )
+        
+    except Exception as e:
+        logger.error(f"Error in similarity search: {e}")
         return str({e})
