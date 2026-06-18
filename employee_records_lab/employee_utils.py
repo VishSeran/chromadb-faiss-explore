@@ -13,7 +13,7 @@ ef = embedding_functions.SentenceTransformerEmbeddingFunction(
 client = chromadb.Client()
 collection_name = "employee_collection"
 
-def perform_advance_search(collection:Collection, all_items):
+def perform_advance_search(collection, all_items):
     try:
         
         print("=== Similarity Search Examples ===")
@@ -111,6 +111,25 @@ def perform_advance_search(collection:Collection, all_items):
             print(f"  {i+1}. {metadata['name']} ({doc_id}) - Distance: {distance:.4f}")
             print(f"     {metadata['role']} in {metadata['location']} ({metadata['experience']} years)")
             print(f"     Document snippet: {document[:80]}...")
+            
+        if not results or not results['ids'] or len(results['ids'][0]) == 0:
+        # Log a message if no similar documents are found for the query term
+            print(f'No documents found similar to "{query_text}"')
+            return
+        
+        print(f'Top 3 similar documents to "{query_text}":')
+        for i in range(min(3, len(results['ids'][0]))):
+            
+            doc_id = results['ids'][0][i]
+            score = results['distances'][0][i]
+            texts = results['documents'][0][i]
+            
+            if not texts:
+                print(f' - ID: {doc_id}, Text: "Text not available", Score: {score:.4f}')
+            else:
+                print(f' - ID: {doc_id}, Text: "{texts}", Score: {score:.4f}')
+    
+
             
     except Exception as e:
         logger.error("Error in advance search: {e}")
