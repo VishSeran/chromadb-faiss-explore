@@ -35,6 +35,23 @@ def perform_advance_search(collection:Collection, all_items):
             print(f"  {i+1}. {metadata['name']} ({doc_id}) - Distance: {distance:.4f}")
             print(f"     Role: {metadata['role']}, Department: {metadata['department']}")
             print(f"     Document: {document[:100]}...")
+            
+            # Example 2: Search for leadership roles
+            
+        print("\n2. Searching for leadership and management roles:")
+        query_text = "team leader manager with experience"
+        results = collection.query(
+            query_texts=[query_text],
+            n_results=3
+        )
+        
+        print(f"Query: '{query_text}'")
+        for i, (doc_id, document, distance) in enumerate(zip(
+            results['ids'][0], results['documents'][0], results['distances'][0]
+        )):
+            metadata = results['metadatas'][0][i]
+            print(f"  {i+1}. {metadata['name']} ({doc_id}) - Distance: {distance:.4f}")
+            print(f"     Role: {metadata['role']}, Experience: {metadata['experience']} years")
         
     except Exception as e:
         logger.error("Error in advance search: {e}")
