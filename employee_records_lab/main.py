@@ -31,8 +31,11 @@ def main():
 
         employees_ids = [employee["id"] for employee in employees]
 
-        if not employees_ids or employees_documents:
-            raise ValueError("emplyees ids or employees document is empty or none")
+        if not employees_ids:
+            raise ValueError("emplyees ids is empty or none")
+        
+        if not employees_documents:
+            raise ValueError("employees document is empty or none")
 
         collection.add(
             ids=employees_ids,
