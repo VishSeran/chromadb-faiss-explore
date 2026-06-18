@@ -1,6 +1,6 @@
 import chromadb
 from chromadb.utils import embedding_functions
-from chromadb import Collection
+
 
 from chroma.logger import get_logger
 

@@ -1,5 +1,5 @@
 from chroma.logger import get_logger
-from employee_records_lab.employee_utils import client, ef, collection_name
+from employee_records_lab.employee_utils import client, ef, collection_name, perform_advance_search
 from employee_records_lab.employee_data import employees
 
 logger = get_logger("employee_logger")
@@ -58,6 +58,8 @@ def main():
         logger.info(f"{collection_name} is updated")
         print("Collection contents:")
         print(f"Number of documents: {len(all_items['documents'])}")
+        
+        perform_advance_search(collection, all_items)
 
     except ValueError as e:
         logger.error(f"value error: {e}")
@@ -65,3 +67,7 @@ def main():
     except Exception as e:
         logger.error(f"Unexpected error: {e}")
         return str({e})
+    
+
+if __name__ == "__main__":
+    main()
