@@ -1,6 +1,6 @@
-from chroma.logger import get_logger
-from chroma.data import texts, ids
-from chroma.chroma_utils import collection_name, chroma_client, ef
+from chromadb.logger import get_logger
+from chromadb.data import texts, ids
+from chromadb.chroma_utils import collection_name, chroma_client, ef
 
 
 logger = get_logger("chroma-main")
