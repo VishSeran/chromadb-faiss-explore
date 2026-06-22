@@ -1,8 +1,6 @@
 import chromadb
 from chromadb.utils import embedding_functions
-
-
-from chroma.logger import get_logger
+from chroma_db.logger import get_logger
 
 logger = get_logger("employee_utils_logger")
 

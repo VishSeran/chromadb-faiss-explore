@@ -1,4 +1,4 @@
-from chroma.logger import get_logger
+from chromadb.logger import get_logger
 from employee_records_lab.employee_utils import client, ef, collection_name, perform_advance_search
 from employee_records_lab.employee_data import employees
 
